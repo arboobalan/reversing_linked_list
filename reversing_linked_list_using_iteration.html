@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reversing a Linked List Using Iteration</title>
+</head>
+<body>
+    <h1>Reversing a Linked List Using Iteration</h1>
+
+    <h2>Original Linked List</h2>
+    <div id="originalList"></div>
+
+    <h2>Reversed Linked List</h2>
+    <div id="reversedList"></div>
+
+    <script>
+        class dataItems {
+            constructor(data, next = null) {
+                this.data = data;
+                this.next = next;
+            }
+        }
+
+        class linkedList {
+            constructor() {
+                this.head = null;
+            }
+
+            insertFirst(data) {
+                this.head = new dataItems(data, this.head);
+            }
+
+            printList() {
+                let current = this.head;
+                let result = '';
+                while (current !== null) {
+                    result += current.data + '<br>';
+                    current = current.next;
+                }
+                return result;
+            }
+
+            reverse() {
+                let prev = null;
+                let current = this.head;
+                let next = null;
+                while (current !== null) {
+                    next = current.next;
+                    current.next = prev;
+                    prev = current;
+                    current = next;
+                }
+                this.head = prev;
+            }
+        }
+
+        const list = new linkedList();
+        list.insertFirst(3);
+        list.insertFirst(2);
+        list.insertFirst(1);
+
+        document.getElementById('originalList').innerHTML = list.printList();
+        list.reverse();
+        document.getElementById('reversedList').innerHTML = list.printList();
+    </script>
+</body>
+</html>

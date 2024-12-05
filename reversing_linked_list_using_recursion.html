@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reversing a Linked List Using Recursion</title>
+</head>
+
+<body>
+    <h1>Reversing a Linked List Using Recursion</h1>
+
+    <h2>Original Linked List</h2>
+    <div id="originalList"></div>
+
+    <h2>Reversed Linked List</h2>
+    <div id="reversedList"></div>
+
+    <script>
+        class dataItems {
+            constructor(data, next = null) {
+                this.data = data;
+                this.next = next;
+            }
+        }
+
+        class linkedList {
+            constructor() {
+                this.head = null;
+            }
+
+            insertFirst(data) {
+                this.head = new dataItems(data, this.head);
+            }
+
+            reverseRecursiveUtil(current, prev) {
+                if (current === null) {
+                    this.head = prev;
+                    return;
+                }
+                const next = current.next;
+                current.next = prev;
+                this.reverseRecursiveUtil(next, current);
+            }
+
+            reverseRecursive() {
+                this.reverseRecursiveUtil(this.head, null);
+            }
+
+            printList() {
+                let current = this.head;
+                let result = '';
+                while (current !== null) {
+                    result += current.data + ' ';
+                    current = current.next;
+                }
+                return result.trim();
+            }
+        }
+
+        const list = new linkedList();
+        list.insertFirst(3);
+        list.insertFirst(2);
+        list.insertFirst(1);
+       
+        document.getElementById('originalList').innerHTML = list.printList();
+        list.reverseRecursive();
+        document.getElementById('reversedList').innerHTML = list.printList();
+    </script>
+</body>
+
+</html>
